@@ -1,7 +1,7 @@
 
 //Initialize google maps
 function initMap() {
-  let currentLoc = {lat: 35.913200, lng: -79.055847};
+  const currentLoc = {lat: 35.913200, lng: -79.055847};
   state.map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 15,
     center: currentLoc,
@@ -51,8 +51,8 @@ function geocodeAddress(){
                           'lng':results[0].geometry.location.lng()};
         addMarkerOnCurrentLoc(state.currentLocation);
         getBusStopLocation(state.currentLocation);
-        state.map .setCenter(state.currentLocation);
-        state.map .setZoom(16);
+        state.map.setCenter(state.currentLocation);
+        state.map.setZoom(16);
 
       } else {
         console.log('Geocode was not successful for the following reason: ' + status);
@@ -102,7 +102,6 @@ function successResult(busLocation, currentCoord){
     busStopStreet = record.fields.name.replace('at', '&');
     busStopAt = record.fields.at;
     direction = record.fields.dir;
-    let busStopCount = 0;
     addBusStopMarkers(currentCoord, markerLocation, 
                       busStopStreet, busStopAt,
                       direction, route);
@@ -117,9 +116,9 @@ function addBusStopMarkers(currentCoord, coordLocation,
   if (calcDistance(currentCoord.lat, currentCoord.lng, 
                   coordLocation.lat, coordLocation.lng) <= 1640.42){
       marker = new google.maps.Marker({
-          position: coordLocation,
-          map: state.map,
-          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        position: coordLocation,
+        map: state.map,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
       });
       state.markers.push(marker);
       showBusStopsList(coordLocation, route, streetLocation, busStopAt, direction);
@@ -229,9 +228,8 @@ function selectBusStopFromListKey(){
 }
 $(selectBusStopFromListKey);
 
-//Zoomin to the selected bus stop
-function zoomIn(currentElem, ind){
-
+//Zoom in to the selected bus stop
+function zoomIn(currentElem){
   selectedBusStopLoc = {'lat': $(currentElem).data('lat'), 
                         'lng': $(currentElem).data('lng')};
   state.map .setCenter(selectedBusStopLoc);
